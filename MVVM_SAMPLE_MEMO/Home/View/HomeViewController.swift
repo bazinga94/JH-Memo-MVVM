@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
 	}
 
 	private func initAndBindData() {
-		let homeModel = HomeModel.init(navigationTitle: "MVVM 메모앱", memoModelList: [MemoModel(title: "첫번째 메모", content: "내용~"), MemoModel(title: "두번째 메모", content: "입니다~")])
+		let homeModel = HomeModel.init(navigationTitle: "MVVM 메모앱", memoModelList: [MemoModel(homeTitle: "첫번째 메모", homeContent: "내용~", content: "코어데이터를"), MemoModel(homeTitle: "두번째 메모", homeContent: "입니다~", content: "써볼까")])
 		self.viewModel = HomeViewModel.init(homeModel: homeModel)
 		tableView.delegate = self
 		tableView.dataSource = viewModel

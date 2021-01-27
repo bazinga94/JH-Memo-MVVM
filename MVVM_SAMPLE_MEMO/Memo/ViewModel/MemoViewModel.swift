@@ -8,23 +8,23 @@
 import UIKit
 
 protocol MemoViewModelProtocol {
-	var memoTitle: String! { get }
+//	var memoTitle: String! { get }
 	var memoContent: String! { get }
-	var memoTitleDidChange: ((MemoViewModelProtocol) -> ())? { get set }
+//	var memoTitleDidChange: ((MemoViewModelProtocol) -> ())? { get set }
 	var memoContentDidChange: ((MemoViewModelProtocol) -> ())? { get set }
 	func refreshMemoView()
 }
 
 class MemoViewModel: MemoViewModelProtocol {
 	var memoModel: MemoModel
-	var memoTitleDidChange: ((MemoViewModelProtocol) -> ())?
+//	var memoTitleDidChange: ((MemoViewModelProtocol) -> ())?
 	var memoContentDidChange: ((MemoViewModelProtocol) -> ())?
 	var index: Int
-	var memoTitle: String! {
-		didSet {
-			self.memoTitleDidChange?(self)
-		}
-	}
+//	var memoTitle: String! {
+//		didSet {
+//			self.memoTitleDidChange?(self)
+//		}
+//	}
 	var memoContent: String! {
 		didSet {
 			self.memoContentDidChange?(self)
@@ -37,11 +37,13 @@ class MemoViewModel: MemoViewModelProtocol {
 	}
 
 	func refreshMemoView() {
-		memoTitle = memoModel.title
+//		memoTitle = memoModel.title
 		memoContent = memoModel.content
 	}
 
 	func memoContentUpdate(content: String) {
-		memoModel.content = content
+		let title = content.split(separator: "\n", maxSplits: 1).map(String.init)
+		memoModel.homeTitle = title[0]
+		memoModel.homeContent = (title.count > 1) ? title[1] : "추가 텍스트 없음"
 	}
 }

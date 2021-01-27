@@ -6,6 +6,7 @@
 //
 
 struct MemoModel {
-	var title: String
-	var content: String
+	var homeTitle: String		// Main View memo list title
+	var homeContent: String		// Main View memo list content
+	var content: String			// Memo View content
 }

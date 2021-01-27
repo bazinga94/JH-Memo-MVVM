@@ -67,8 +67,8 @@ extension HomeViewModel: UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell: HomeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-		cell.titleLabel.text = memoList[indexPath.row].title
-		cell.contentLabel.text = memoList[indexPath.row].content
+		cell.titleLabel.text = memoList[indexPath.row].homeTitle
+		cell.contentLabel.text = memoList[indexPath.row].homeContent
 		return cell
 	}
 }
