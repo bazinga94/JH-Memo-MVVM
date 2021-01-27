@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol MemoViewModelProtocol {
 //	var memoTitle: String! { get }
@@ -46,5 +47,23 @@ class MemoViewModel: MemoViewModelProtocol {
 		memoModel.homeTitle = title[0]
 		memoModel.homeContent = (title.count > 1) ? title[1] : "추가 텍스트 없음"
 		memoModel.content = content
+		saveInCoreData(memoModel: memoModel)
+	}
+
+	private func saveInCoreData(memoModel: MemoModel) {
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let context = appDelegate.persistentContainer.viewContext
+		let entity = NSEntityDescription.entity(forEntityName: "MemoEntity", in: context)
+
+		let content = NSManagedObject(entity: entity!, insertInto: context)
+		content.setValue(memoModel.content, forKey: "content")
+		content.setValue(memoModel.homeTitle, forKey: "homeTitle")
+		content.setValue(memoModel.homeContent, forKey: "homeContent")
+
+		do {
+			try context.save()
+		} catch {
+			print(error.localizedDescription)
+		}
 	}
 }
