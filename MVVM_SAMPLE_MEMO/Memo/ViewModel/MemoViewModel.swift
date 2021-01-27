@@ -45,5 +45,6 @@ class MemoViewModel: MemoViewModelProtocol {
 		let title = content.split(separator: "\n", maxSplits: 1).map(String.init)
 		memoModel.homeTitle = title[0]
 		memoModel.homeContent = (title.count > 1) ? title[1] : "추가 텍스트 없음"
+		memoModel.content = content
 	}
 }
