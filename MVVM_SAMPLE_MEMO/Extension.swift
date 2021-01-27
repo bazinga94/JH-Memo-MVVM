@@ -24,3 +24,29 @@ extension UITableView {
 		return cell
 	}
 }
+
+extension UIView {
+	/**
+	UIView Round 처리
+	- Parameter corners: UIRectCorner : [.topRight, .topLeft, .bottomLeft, .bottomRight]
+	- Parameter radius: radius 값
+	- Returns: rounding 처리 된 UIView
+	*/
+	func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+		var cornerMask = CACornerMask()
+		if(corners.contains(.topLeft)) {
+			cornerMask.insert(.layerMinXMinYCorner)
+		}
+		if(corners.contains(.topRight)) {
+			cornerMask.insert(.layerMaxXMinYCorner)
+		}
+		if(corners.contains(.bottomLeft)) {
+			cornerMask.insert(.layerMinXMaxYCorner)
+		}
+		if(corners.contains(.bottomRight)) {
+			cornerMask.insert(.layerMaxXMaxYCorner)
+		}
+		self.layer.cornerRadius = radius
+		self.layer.maskedCorners = cornerMask
+	}
+}

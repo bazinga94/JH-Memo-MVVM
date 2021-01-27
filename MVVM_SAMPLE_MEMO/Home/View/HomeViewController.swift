@@ -23,8 +23,13 @@ class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		initUI()
 		initAndBindData()
 		self.viewModel?.refresHomeView()
+	}
+
+	private func initUI() {
+		tableView.roundCorners([.topLeft, .topRight], radius: 10)
 	}
 
 	private func initAndBindData() {
