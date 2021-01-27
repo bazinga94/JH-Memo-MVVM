@@ -22,8 +22,8 @@ protocol HomeViewModelProtocol {
 	init(homeModel: HomeModel)
 	var titleDidChange: ((HomeViewModelProtocol) -> ())? { get set }
 	var memoListDidChange: ((HomeViewModelProtocol) -> ())? { get set }
-	func refreshTableView()
-
+	func refresHomeView()
+	func memoDidSelect(for index: Int) -> MemoViewModel
 }
 
 class HomeViewModel: NSObject, HomeViewModelProtocol {
@@ -45,9 +45,18 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 		self.homeModel = homeModel
 	}
 
-	func refreshTableView() {
+	func refresHomeView() {
 		title = homeModel.navigationTitle
 		memoList = homeModel.memoModelList
+	}
+
+	func memoDidSelect(for index: Int) -> MemoViewModel {
+		return MemoViewModel(index: index, memoModel: memoList[index])
+	}
+
+	func memoListUpdate(memoViewModel: MemoViewModel) {
+		memoList.remove(at: memoViewModel.index)
+		memoList.insert(memoViewModel.memoModel, at: 0)
 	}
 }
 

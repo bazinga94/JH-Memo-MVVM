@@ -7,12 +7,10 @@
 
 import UIKit
 
-
-
 class HomeViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 
-	private var viewModel: HomeViewModel? {
+	var viewModel: HomeViewModel? {
 		didSet {
 			viewModel?.titleDidChange = { [weak self] viewModel in
 				self?.navigationItem.title = viewModel.title
@@ -26,7 +24,7 @@ class HomeViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		initAndBindData()
-		self.viewModel?.refreshTableView()
+		self.viewModel?.refresHomeView()
 	}
 
 	private func initAndBindData() {
@@ -40,7 +38,9 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let storyBoard: UIStoryboard! = UIStoryboard(name: "Memo", bundle: nil)
-		let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController")
-		self.navigationController?.pushViewController(viewController, animated: true)
+		if let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController") as? MemoViewController {
+			viewController.viewModel = self.viewModel?.memoDidSelect(for: indexPath.row)
+			self.navigationController?.pushViewController(viewController, animated: true)
+		}
 	}
 }
