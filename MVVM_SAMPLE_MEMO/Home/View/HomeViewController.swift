@@ -41,26 +41,9 @@ class HomeViewController: UIViewController {
 	}
 
 	private func initAndBindData() {
-		let homeModel = HomeModel.init(navigationTitle: "MVVM 메모앱", memoModelList: fetchFromCoreData())
-		self.viewModel = HomeViewModel.init(homeModel: homeModel)
+		self.viewModel = HomeViewModel.init()
 		tableView.delegate = self
 		tableView.dataSource = viewModel
-	}
-
-	private func fetchFromCoreData() -> [MemoModel] {
-		var memoModelList: [MemoModel] = []
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		let context = appDelegate.persistentContainer.viewContext
-		do {
-			let memoEntityList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoEntity]
-			memoEntityList.forEach { (entity) in
-				memoModelList.append(MemoModel(homeTitle: entity.homeTitle!, homeContent: entity.homeContent!, content: entity.content!, date: entity.date!))
-			}
-			return memoModelList
-		} catch {
-			print(error.localizedDescription)
-			return []
-		}
 	}
 }
 

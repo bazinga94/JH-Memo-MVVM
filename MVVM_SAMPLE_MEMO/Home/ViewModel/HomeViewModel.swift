@@ -19,7 +19,6 @@ protocol ViewModel {
 protocol HomeViewModelProtocol {
 	var title: String! { get }
 	var memoList: [MemoModel]! { get }
-	init(homeModel: HomeModel)
 	var titleDidChange: ((HomeViewModelProtocol) -> ())? { get set }
 	var memoListDidChange: ((HomeViewModelProtocol) -> ())? { get set }
 	func refresHomeView()
@@ -27,7 +26,7 @@ protocol HomeViewModelProtocol {
 }
 
 class HomeViewModel: NSObject, HomeViewModelProtocol {
-	var homeModel: HomeModel
+	var homeModel: HomeModel!
 	var titleDidChange: ((HomeViewModelProtocol) -> ())?
 	var memoListDidChange: ((HomeViewModelProtocol) -> ())?
 	var title: String! {
@@ -41,8 +40,9 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 		}
 	}
 
-	required init(homeModel: HomeModel) {
-		self.homeModel = homeModel
+	override init() {
+		super.init()
+		self.homeModel = HomeModel.init(navigationTitle: "MVVM 메모앱", memoModelList: fetchFromCoreData())
 	}
 
 	func refresHomeView() {
@@ -59,6 +59,22 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 			memoList.remove(at: memoViewModel.index)
 		}
 		memoList.insert(memoViewModel.memoModel, at: 0)
+	}
+
+	private func fetchFromCoreData() -> [MemoModel] {
+		var memoModelList: [MemoModel] = []
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let context = appDelegate.persistentContainer.viewContext
+		do {
+			let memoEntityList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoEntity]
+			memoEntityList.forEach { (entity) in
+				memoModelList.append(MemoModel(homeTitle: entity.homeTitle!, homeContent: entity.homeContent!, content: entity.content!, date: entity.date!))
+			}
+			return memoModelList
+		} catch {
+			print(error.localizedDescription)
+			return []
+		}
 	}
 }
 
