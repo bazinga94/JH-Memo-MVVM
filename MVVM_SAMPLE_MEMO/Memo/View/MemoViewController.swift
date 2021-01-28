@@ -12,9 +12,6 @@ class MemoViewController: UIViewController {
 
 	var viewModel: MemoViewModel? {
 		didSet {
-//			viewModel?.memoTitleDidChange = { [weak self] viewModel in
-//				self?.memoTextView.text = viewModel.memoTitle + viewModel.memoContent
-//			}
 			viewModel?.memoContentDidChange = { [weak self] viewModel in
 				self?.memoTextView.text = viewModel.memoContent
 			}

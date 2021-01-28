@@ -9,23 +9,15 @@ import UIKit
 import CoreData
 
 protocol MemoViewModelProtocol {
-//	var memoTitle: String! { get }
 	var memoContent: String! { get }
-//	var memoTitleDidChange: ((MemoViewModelProtocol) -> ())? { get set }
 	var memoContentDidChange: ((MemoViewModelProtocol) -> ())? { get set }
 	func refreshMemoView()
 }
 
 class MemoViewModel: MemoViewModelProtocol {
 	var memoModel: MemoModel
-//	var memoTitleDidChange: ((MemoViewModelProtocol) -> ())?
 	var memoContentDidChange: ((MemoViewModelProtocol) -> ())?
 	var index: Int
-//	var memoTitle: String! {
-//		didSet {
-//			self.memoTitleDidChange?(self)
-//		}
-//	}
 	var memoContent: String! {
 		didSet {
 			self.memoContentDidChange?(self)
@@ -38,7 +30,6 @@ class MemoViewModel: MemoViewModelProtocol {
 	}
 
 	func refreshMemoView() {
-//		memoTitle = memoModel.title
 		memoContent = memoModel.content
 	}
 
