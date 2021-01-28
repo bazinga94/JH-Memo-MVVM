@@ -55,7 +55,9 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 	}
 
 	func memoListUpdate(memoViewModel: MemoViewModel) {
-		memoList.remove(at: memoViewModel.index)
+		if memoList.count > 0, memoViewModel.index != -1 {
+			memoList.remove(at: memoViewModel.index)
+		}
 		memoList.insert(memoViewModel.memoModel, at: 0)
 	}
 }
@@ -69,6 +71,7 @@ extension HomeViewModel: UITableViewDataSource {
 		let cell: HomeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 		cell.titleLabel.text = memoList[indexPath.row].homeTitle
 		cell.contentLabel.text = memoList[indexPath.row].homeContent
+		cell.dateLabel.text = memoList[indexPath.row].date.dateToString("yyyy.MM.dd HH:mm:ss")
 		return cell
 	}
 }

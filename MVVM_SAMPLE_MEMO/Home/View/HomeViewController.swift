@@ -10,6 +10,13 @@ import CoreData
 
 class HomeViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
+	@IBAction func newMemoButtonAction(_ sender: Any) {
+		let storyBoard: UIStoryboard! = UIStoryboard(name: "Memo", bundle: nil)
+		if let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController") as? MemoViewController {
+			viewController.viewModel = MemoViewModel(index: -1, memoModel: MemoModel(homeTitle: "", homeContent: "", content: "", date: Date()))
+			self.navigationController?.pushViewController(viewController, animated: true)
+		}
+	}
 
 	var viewModel: HomeViewModel? {
 		didSet {
@@ -42,10 +49,14 @@ class HomeViewController: UIViewController {
 	}
 
 	private func fetchFromCoreData() -> [MemoModel] {
+		var memoModelList: [MemoModel] = []
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		do {
-			let memoModelList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoModel]
+			let memoEntityList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoEntity]
+			memoEntityList.forEach { (entity) in
+				memoModelList.append(MemoModel(homeTitle: entity.homeTitle!, homeContent: entity.homeContent!, content: entity.content!, date: entity.date!))
+			}
 			return memoModelList
 		} catch {
 			print(error.localizedDescription)

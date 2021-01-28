@@ -36,25 +36,34 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXE-l5-flg">
-                                                    <rect key="frame" x="30" y="39" width="52" height="39"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="UXE-l5-flg">
+                                                    <rect key="frame" x="30" y="39" width="30.5" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0Ov-ck-m6c">
+                                                    <rect key="frame" x="80.5" y="50" width="52" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UXE-l5-flg" secondAttribute="trailing" constant="30" id="3K4-rT-K02"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aia-ZA-pdF" secondAttribute="trailing" constant="30" id="GAS-mx-ZZ5"/>
                                                 <constraint firstAttribute="bottom" secondItem="UXE-l5-flg" secondAttribute="bottom" constant="8" id="HpS-jt-mfY"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="0Ov-ck-m6c" secondAttribute="trailing" constant="30" id="M9p-YA-2QK"/>
+                                                <constraint firstItem="0Ov-ck-m6c" firstAttribute="centerY" secondItem="UXE-l5-flg" secondAttribute="centerY" id="NAG-0c-uiM"/>
                                                 <constraint firstItem="UXE-l5-flg" firstAttribute="top" secondItem="aia-ZA-pdF" secondAttribute="bottom" constant="10" id="Xd0-HE-F8z"/>
                                                 <constraint firstItem="UXE-l5-flg" firstAttribute="leading" secondItem="Iey-9X-9ya" secondAttribute="leading" constant="30" id="Xob-Wf-7oY"/>
+                                                <constraint firstItem="0Ov-ck-m6c" firstAttribute="leading" secondItem="UXE-l5-flg" secondAttribute="trailing" constant="20" id="blq-6S-ryJ"/>
                                                 <constraint firstItem="aia-ZA-pdF" firstAttribute="top" secondItem="Iey-9X-9ya" secondAttribute="top" constant="8" id="bso-6l-o5h"/>
                                                 <constraint firstItem="aia-ZA-pdF" firstAttribute="leading" secondItem="Iey-9X-9ya" secondAttribute="leading" constant="30" id="oZs-HY-PBQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="contentLabel" destination="UXE-l5-flg" id="SLz-Qe-4DN"/>
+                                            <outlet property="contentLabel" destination="0Ov-ck-m6c" id="9fX-Ih-thE"/>
+                                            <outlet property="dateLabel" destination="UXE-l5-flg" id="hT8-jk-hXa"/>
                                             <outlet property="titleLabel" destination="aia-ZA-pdF" id="nNj-wa-G3E"/>
                                         </connections>
                                     </tableViewCell>
@@ -71,6 +80,9 @@
                                         </constraints>
                                         <color key="tintColor" systemColor="systemOrangeColor"/>
                                         <state key="normal" backgroundImage="square.and.pencil" catalog="system"/>
+                                        <connections>
+                                            <action selector="newMemoButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xuy-6y-joH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>

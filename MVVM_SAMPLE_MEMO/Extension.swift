@@ -50,3 +50,18 @@ extension UIView {
 		self.layer.maskedCorners = cornerMask
 	}
 }
+
+let koreaDateFormat: DateFormatter = {
+	let df = DateFormatter()
+	df.locale = Locale(identifier: "ko_KR")
+	df.timeZone = TimeZone(abbreviation: "KST")
+	return df
+}()
+
+extension Date {
+	func dateToString(_ format: String = "yyyy.MM.dd") -> String {
+		let dateFormatter = koreaDateFormat
+		dateFormatter.dateFormat = format
+		return dateFormatter.string(from: self)
+	}
+}
