@@ -17,32 +17,13 @@ protocol ViewModel {
 }
 
 protocol HomeViewModelProtocol {
-//	var title: String! { get }
-//	var memoList: [MemoModel]! { get }
-//	var titleDidChange: ((HomeViewModelProtocol) -> ())? { get set }
-//	var memoListDidChange: ((HomeViewModelProtocol) -> ())? { get set }
-//	func refresHomeView()
 	func memoDidSelect(for index: Int) -> MemoViewModel
+	func memoListUpdate(memoViewModel: MemoViewModel)
 }
 
 class HomeViewModel: NSObject, HomeViewModelProtocol {
-//	var homeModel: HomeModel!
-//	var titleDidChange: ((HomeViewModelProtocol) -> ())?
-//	var memoListDidChange: ((HomeViewModelProtocol) -> ())?
-//	var homeModel: Dynamic<HomeModel> = .init(.init())
 	var title: Dynamic<String> = .init("")
 	var memoList: Dynamic<[MemoModel]> = .init(.init())
-
-//	var title: String! {
-//		didSet {
-//			self.titleDidChange?(self)
-//		}
-//	}
-//	var memoList: [MemoModel]! {
-//		didSet {
-//			self.memoListDidChange?(self)
-//		}
-//	}
 
 	override init() {
 		super.init()
@@ -50,16 +31,9 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 	}
 
 	private func configureModel() {
-//		homeModel.value.navigationTitle = "MVVM 메모앱"
-//		homeModel.value.memoModelList = fetchFromCoreData()
 		title.value = "MVVM 메모앱"
 		memoList.value = fetchFromCoreData()
 	}
-
-//	func refresHomeView() {
-//		title = homeModel.navigationTitle
-//		memoList = homeModel.memoModelList
-//	}
 
 	func memoDidSelect(for index: Int) -> MemoViewModel {
 		return MemoViewModel(index: index, memoModel: memoList.value[index])
