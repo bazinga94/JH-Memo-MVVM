@@ -36,14 +36,14 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 	}
 
 	func memoDidSelect(for index: Int) -> MemoViewModel {
-		return MemoViewModel(index: index, memoModel: memoList.value[index])
+		return MemoViewModel(isUpdate: true, index: index, memoModel: memoList.value[index])
 	}
 
 	func memoListUpdate(memoViewModel: MemoViewModel) {
-		if memoList.value.count > 0, memoViewModel.index != -1 {
-			memoList.value.remove(at: memoViewModel.index)
+		if memoList.value.count > 0, memoViewModel.isUpdate.value {
+			memoList.value.remove(at: memoViewModel.index.value)
 		}
-		memoList.value.insert(memoViewModel.memoModel, at: 0)
+		memoList.value.insert(memoViewModel.memoModel.value, at: 0)
 	}
 
 	private func fetchFromCoreData() -> [MemoModel] {
@@ -53,7 +53,12 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 		do {
 			let memoEntityList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoEntity]
 			memoEntityList.forEach { (entity) in
-				memoModelList.append(MemoModel(homeTitle: entity.homeTitle!, homeContent: entity.homeContent!, content: entity.content!, date: entity.date!))
+				var memoModel = MemoModel()
+				memoModel.homeTitle = entity.homeTitle!
+				memoModel.homeContent = entity.homeContent!
+				memoModel.content = entity.content!
+				memoModel.date = entity.date!
+				memoModelList.append(memoModel)
 			}
 			return memoModelList
 		} catch {
