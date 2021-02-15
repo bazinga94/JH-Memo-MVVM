@@ -46,6 +46,12 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 		memoList.value.insert(memoViewModel.memoModel.value, at: 0)
 	}
 
+	func memoListDelete(memoViewModel: MemoViewModel) {
+		if memoList.value.count > 0 {
+			memoList.value.remove(at: memoViewModel.index.value)
+		}
+	}
+
 	private func fetchFromCoreData() -> [MemoModel] {
 		var memoModelList: [MemoModel] = []
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate

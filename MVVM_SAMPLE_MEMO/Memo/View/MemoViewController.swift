@@ -14,7 +14,11 @@ class MemoViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		memoTextView.delegate = self
 		configureUI()
+		if viewModel!.isUpdate.value {
+			viewModel?.memoContentInsert(content: "")
+		}
 	}
 
 	private func configureUI() {
@@ -26,8 +30,22 @@ class MemoViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		if self.isMovingFromParent, let homeViewController = self.navigationController?.topViewController as? HomeViewController, let viewModel = viewModel {
-			(viewModel.isUpdate.value) ? viewModel.memoContentUpdate(content: memoTextView.text) : viewModel.memoContentInsert(content: memoTextView.text)
-			homeViewController.viewModel?.memoListUpdate(memoViewModel: viewModel)
+			if !viewModel.isUpdate.value, memoTextView.text.count == 0 {
+				viewModel.memoContentDelete()
+			} else if viewModel.isUpdate.value, memoTextView.text.count == 0 {
+				viewModel.memoContentDelete()
+//				homeViewController.viewModel?.memoListDelete(memoViewModel: viewModel)
+			} else {
+				homeViewController.viewModel?.memoListUpdate(memoViewModel: viewModel)
+			}
+		}
+	}
+}
+
+extension MemoViewController: UITextViewDelegate {
+	func textViewDidChange(_ textView: UITextView) {
+		if memoTextView.text.count != 0, let viewModel = viewModel {
+		viewModel.memoContentUpdate(content: memoTextView.text)
 		}
 	}
 }
