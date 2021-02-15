@@ -8,4 +8,9 @@
 struct HomeModel {
 	var navigationTitle: String
 	var memoModelList: [MemoModel]
+
+	init() {
+		self.navigationTitle = ""
+		self.memoModelList = []
+	}
 }

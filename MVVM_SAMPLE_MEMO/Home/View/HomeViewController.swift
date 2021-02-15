@@ -20,30 +20,29 @@ class HomeViewController: UIViewController {
 
 	var viewModel: HomeViewModel? {
 		didSet {
-			viewModel?.titleDidChange = { [weak self] viewModel in
-				self?.navigationItem.title = viewModel.title
-			}
-			viewModel?.memoListDidChange = { [weak self] viewModel in
-				self?.tableView.reloadData()
-			}
+			configureUI()
 		}
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.viewModel = HomeViewModel.init()
+		tableView.delegate = self
+		tableView.dataSource = viewModel
 		initUI()
-		initAndBindData()
-		self.viewModel?.refresHomeView()
 	}
 
 	private func initUI() {
 		tableView.roundCorners([.topLeft, .topRight], radius: 10)
 	}
 
-	private func initAndBindData() {
-		self.viewModel = HomeViewModel.init()
-		tableView.delegate = self
-		tableView.dataSource = viewModel
+	private func configureUI() {
+		viewModel?.title.bind(listener: { [weak self] title in
+			self?.navigationItem.title = title
+		})
+		viewModel?.memoList.bind(listener: { [weak self] _ in
+			self?.tableView.reloadData()
+		})
 	}
 }
 
