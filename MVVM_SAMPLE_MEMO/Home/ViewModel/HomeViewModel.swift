@@ -17,48 +17,33 @@ protocol ViewModel {
 }
 
 protocol HomeViewModelProtocol {
-	var title: String! { get }
-	var memoList: [MemoModel]! { get }
-	var titleDidChange: ((HomeViewModelProtocol) -> ())? { get set }
-	var memoListDidChange: ((HomeViewModelProtocol) -> ())? { get set }
-	func refresHomeView()
 	func memoDidSelect(for index: Int) -> MemoViewModel
+	func memoListUpdate(memoViewModel: MemoViewModel)
 }
 
 class HomeViewModel: NSObject, HomeViewModelProtocol {
-	var homeModel: HomeModel!
-	var titleDidChange: ((HomeViewModelProtocol) -> ())?
-	var memoListDidChange: ((HomeViewModelProtocol) -> ())?
-	var title: String! {
-		didSet {
-			self.titleDidChange?(self)
-		}
-	}
-	var memoList: [MemoModel]! {
-		didSet {
-			self.memoListDidChange?(self)
-		}
-	}
+	var title: Dynamic<String> = .init("")
+	var memoList: Dynamic<[MemoModel]> = .init(.init())
 
 	override init() {
 		super.init()
-		self.homeModel = HomeModel.init(navigationTitle: "MVVM 메모앱", memoModelList: fetchFromCoreData())
+		configureModel()
 	}
 
-	func refresHomeView() {
-		title = homeModel.navigationTitle
-		memoList = homeModel.memoModelList
+	private func configureModel() {
+		title.value = "MVVM 메모앱"
+		memoList.value = fetchFromCoreData()
 	}
 
 	func memoDidSelect(for index: Int) -> MemoViewModel {
-		return MemoViewModel(index: index, memoModel: memoList[index])
+		return MemoViewModel(index: index, memoModel: memoList.value[index])
 	}
 
 	func memoListUpdate(memoViewModel: MemoViewModel) {
-		if memoList.count > 0, memoViewModel.index != -1 {
-			memoList.remove(at: memoViewModel.index)
+		if memoList.value.count > 0, memoViewModel.index != -1 {
+			memoList.value.remove(at: memoViewModel.index)
 		}
-		memoList.insert(memoViewModel.memoModel, at: 0)
+		memoList.value.insert(memoViewModel.memoModel, at: 0)
 	}
 
 	private func fetchFromCoreData() -> [MemoModel] {
@@ -80,14 +65,14 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 
 extension HomeViewModel: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return memoList.count
+		return memoList.value.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell: HomeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-		cell.titleLabel.text = memoList[indexPath.row].homeTitle
-		cell.contentLabel.text = memoList[indexPath.row].homeContent
-		cell.dateLabel.text = memoList[indexPath.row].date.dateToString("yyyy.MM.dd HH:mm:ss")
+		cell.titleLabel.text = memoList.value[indexPath.row].homeTitle
+		cell.contentLabel.text = memoList.value[indexPath.row].homeContent
+		cell.dateLabel.text = memoList.value[indexPath.row].date.dateToString("yyyy.MM.dd HH:mm:ss")
 		return cell
 	}
 }
