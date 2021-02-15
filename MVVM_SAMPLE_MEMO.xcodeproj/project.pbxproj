@@ -24,6 +24,7 @@
 		B2BC59B725C01D6C006CDB81 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BC59B625C01D6C006CDB81 /* MemoViewController.swift */; };
 		B2BC59C825C0FA42006CDB81 /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BC59C725C0FA42006CDB81 /* MemoViewModel.swift */; };
 		B2BC59CE25C13E86006CDB81 /* MemoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B2BC59CC25C13E86006CDB81 /* MemoModel.xcdatamodeld */; };
+		B2D1E94025DA2F940010BA1C /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D1E93F25DA2F940010BA1C /* Dynamic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		B2BC59B625C01D6C006CDB81 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
 		B2BC59C725C0FA42006CDB81 /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
 		B2BC59CD25C13E86006CDB81 /* MemoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoModel.xcdatamodel; sourceTree = "<group>"; };
+		B2D1E93F25DA2F940010BA1C /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			children = (
 				B2BC594825BFB4F9006CDB81 /* AppDelegate.swift */,
 				B2BC594A25BFB4F9006CDB81 /* SceneDelegate.swift */,
+				B2D1E93E25DA2F700010BA1C /* Boxing */,
 				B2BC599325BFC8B6006CDB81 /* Memo */,
 				B2BC597B25BFB510006CDB81 /* Home */,
 				B2BC595125BFB4FA006CDB81 /* Assets.xcassets */,
@@ -217,6 +220,14 @@
 				B2BC598625BFC679006CDB81 /* MemoModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B2D1E93E25DA2F700010BA1C /* Boxing */ = {
+			isa = PBXGroup;
+			children = (
+				B2D1E93F25DA2F940010BA1C /* Dynamic.swift */,
+			);
+			path = Boxing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,6 +370,7 @@
 				B2BC594925BFB4F9006CDB81 /* AppDelegate.swift in Sources */,
 				B2BC598F25BFC8A1006CDB81 /* HomeViewModel.swift in Sources */,
 				B2BC594B25BFB4F9006CDB81 /* SceneDelegate.swift in Sources */,
+				B2D1E94025DA2F940010BA1C /* Dynamic.swift in Sources */,
 				B2BC59AD25C013D5006CDB81 /* Extension.swift in Sources */,
 				B2BC59B725C01D6C006CDB81 /* MemoViewController.swift in Sources */,
 			);
