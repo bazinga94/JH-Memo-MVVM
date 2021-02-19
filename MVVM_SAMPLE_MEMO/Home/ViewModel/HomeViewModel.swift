@@ -64,6 +64,7 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 				memoModel.homeContent = entity.homeContent!
 				memoModel.content = entity.content!
 				memoModel.date = entity.date!
+				memoModel.index	= entity.index
 				memoModelList.append(memoModel)
 			}
 			return memoModelList

@@ -58,6 +58,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		content.setValue(memoModel.homeTitle, forKey: "homeTitle")
 		content.setValue(memoModel.homeContent, forKey: "homeContent")
 		content.setValue(memoModel.date, forKey: "date")
+		content.setValue(memoModel.index, forKey: "index")
 
 		saveContext(context)
 	}
@@ -66,7 +67,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "date = %@", memoModel.date as CVarArg)
+		fetchRequest.predicate = NSPredicate(format: "index = %@", memoModel.index as CVarArg)
 
 		do {
 			let results = try context.fetch(fetchRequest) as? [MemoEntity]
@@ -75,6 +76,7 @@ class MemoViewModel: MemoViewModelProtocol {
 				results?[0].setValue(memoModel.homeTitle, forKey: "homeTitle")
 				results?[0].setValue(memoModel.homeContent, forKey: "homeContent")
 				results?[0].setValue(memoModel.date, forKey: "date")
+				results?[0].setValue(memoModel.index, forKey: "index")
 			}
 			saveContext(context)
 		} catch {
@@ -87,7 +89,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "date = %@", memoModel.date as CVarArg)
+		fetchRequest.predicate = NSPredicate(format: "index = %@", memoModel.index as CVarArg)
 
 		do {
 			guard let results = try context.fetch(fetchRequest) as? [MemoEntity] else { return }

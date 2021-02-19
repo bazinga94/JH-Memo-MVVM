@@ -12,11 +12,13 @@ struct MemoModel {
 	var homeContent: String		// Main View memo list content
 	var content: String			// Memo View content
 	var date: Date				// Memo saving date
+	var index: Int64			// Memo index
 
 	init() {
 		self.homeTitle = ""
 		self.homeContent = ""
 		self.content = ""
 		self.date = Date()
+		self.index = 0
 	}
 }

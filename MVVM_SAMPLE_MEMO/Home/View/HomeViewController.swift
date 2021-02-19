@@ -13,7 +13,8 @@ class HomeViewController: UIViewController {
 	@IBAction func newMemoButtonAction(_ sender: Any) {
 		let storyBoard: UIStoryboard! = UIStoryboard(name: "Memo", bundle: nil)
 		if let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController") as? MemoViewController {
-			viewController.viewModel = MemoViewModel(isUpdate: false, index: -1, memoModel: MemoModel())
+			let lastIndex = viewModel?.memoList.value.count ?? 0
+			viewController.viewModel = MemoViewModel(isUpdate: false, index: lastIndex, memoModel: MemoModel())
 			self.navigationController?.pushViewController(viewController, animated: true)
 		}
 	}

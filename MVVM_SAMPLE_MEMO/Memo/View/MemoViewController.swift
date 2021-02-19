@@ -30,9 +30,9 @@ class MemoViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		if self.isMovingFromParent, let homeViewController = self.navigationController?.topViewController as? HomeViewController, let viewModel = viewModel {
-			if !viewModel.isUpdate.value, memoTextView.text.count == 0 {
+			if !viewModel.isUpdate.value, memoTextView.text.count == 0 {		// new
 				viewModel.memoContentDelete()
-			} else if viewModel.isUpdate.value, memoTextView.text.count == 0 {
+			} else if viewModel.isUpdate.value, memoTextView.text.count == 0 {	// edit
 				viewModel.memoContentDelete()
 //				homeViewController.viewModel?.memoListDelete(memoViewModel: viewModel)
 			} else {
@@ -44,8 +44,6 @@ class MemoViewController: UIViewController {
 
 extension MemoViewController: UITextViewDelegate {
 	func textViewDidChange(_ textView: UITextView) {
-		if memoTextView.text.count != 0, let viewModel = viewModel {
-		viewModel.memoContentUpdate(content: memoTextView.text)
-		}
+		viewModel?.memoContentUpdate(content: memoTextView.text)
 	}
 }
