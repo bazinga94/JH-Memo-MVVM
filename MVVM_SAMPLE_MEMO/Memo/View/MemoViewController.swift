@@ -16,8 +16,8 @@ class MemoViewController: UIViewController {
 		super.viewDidLoad()
 		memoTextView.delegate = self
 		configureUI()
-		if viewModel!.isUpdate.value {
-			viewModel?.memoContentInsert(content: "")
+		if !viewModel!.isUpdate.value {		// 메모를 신규 생성하는 경우
+			viewModel?.memoContentInsert(content: "")	// 미리 메모 entity 생성
 		}
 	}
 

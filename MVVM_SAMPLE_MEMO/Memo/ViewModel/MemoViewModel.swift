@@ -25,11 +25,14 @@ class MemoViewModel: MemoViewModelProtocol {
 	}
 
 	func memoContentInsert(content: String) {
-		let title = content.split(separator: "\n", maxSplits: 1).map(String.init)
-		if title.count == 0 { return }
-		memoModel.value.homeTitle = title[0]
-		memoModel.value.homeContent = (title.count > 1) ? title[1] : "추가 텍스트 없음"
-		memoModel.value.content = content
+//		let title = content.split(separator: "\n", maxSplits: 1).map(String.init)
+//		if title.count == 0 { return }
+//		memoModel.value.homeTitle = title[0]
+//		memoModel.value.homeContent = (title.count > 1) ? title[1] : "추가 텍스트 없음"
+//		memoModel.value.content = content
+		memoModel.value.homeTitle = ""
+		memoModel.value.homeContent = ""
+		memoModel.value.content = ""
 		memoModel.value.date = Date()
 		insertInCoreData(memoModel: memoModel.value)
 	}
@@ -67,7 +70,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index = %@", memoModel.index as CVarArg)
+		fetchRequest.predicate = NSPredicate(format: "index == %@", memoModel.index)
 
 		do {
 			let results = try context.fetch(fetchRequest) as? [MemoEntity]
@@ -89,7 +92,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index = %@", memoModel.index as CVarArg)
+		fetchRequest.predicate = NSPredicate(format: "index == %@", memoModel.index as Int64)
 
 		do {
 			guard let results = try context.fetch(fetchRequest) as? [MemoEntity] else { return }
