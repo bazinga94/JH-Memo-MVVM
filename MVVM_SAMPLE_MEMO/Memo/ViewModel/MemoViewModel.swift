@@ -70,7 +70,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == %@", memoModel.index)
+		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
 
 		do {
 			let results = try context.fetch(fetchRequest) as? [MemoEntity]
@@ -92,7 +92,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == %@", memoModel.index as Int64)
+		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
 
 		do {
 			guard let results = try context.fetch(fetchRequest) as? [MemoEntity] else { return }
