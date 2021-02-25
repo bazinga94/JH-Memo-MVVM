@@ -36,19 +36,19 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 	}
 
 	func memoDidSelect(for index: Int) -> MemoViewModel {
-		return MemoViewModel(isUpdate: true, index: index, memoModel: memoList.value[index])
+		return MemoViewModel(isUpdate: true, memoModel: memoList.value[index])
 	}
 
 	func memoListUpdate(memoViewModel: MemoViewModel) {
 		if memoList.value.count > 0, memoViewModel.isUpdate.value {
-			memoList.value.remove(at: memoViewModel.index.value)
+			memoList.value.remove(at: memoViewModel.memoModel.value.index)
 		}
 		memoList.value.insert(memoViewModel.memoModel.value, at: 0)
 	}
 
 	func memoListDelete(memoViewModel: MemoViewModel) {
 		if memoList.value.count > 0 {
-			memoList.value.remove(at: memoViewModel.index.value)
+			memoList.value.remove(at: memoViewModel.memoModel.value.index)
 		}
 	}
 
@@ -64,7 +64,7 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 				memoModel.homeContent = entity.homeContent!
 				memoModel.content = entity.content!
 				memoModel.date = entity.date!
-				memoModel.index	= entity.index
+				memoModel.index	= Int(entity.index)
 				memoModelList.append(memoModel)
 			}
 			return memoModelList

@@ -14,7 +14,9 @@ class HomeViewController: UIViewController {
 		let storyBoard: UIStoryboard! = UIStoryboard(name: "Memo", bundle: nil)
 		if let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController") as? MemoViewController {
 			let lastIndex = viewModel?.memoList.value.count ?? 0
-			viewController.viewModel = MemoViewModel(isUpdate: false, index: lastIndex, memoModel: MemoModel())
+			var memoModel = MemoModel()
+			memoModel.index = lastIndex
+			viewController.viewModel = MemoViewModel(isUpdate: false, memoModel: memoModel)
 			self.navigationController?.pushViewController(viewController, animated: true)
 		}
 	}

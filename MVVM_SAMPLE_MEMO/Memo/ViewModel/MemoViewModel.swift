@@ -15,12 +15,10 @@ protocol MemoViewModelProtocol {
 
 class MemoViewModel: MemoViewModelProtocol {
 	var isUpdate: Dynamic<Bool> = .init(false)
-	var index: Dynamic<Int> = .init(0)
 	var memoModel: Dynamic<MemoModel> = .init(.init())
 
-	init(isUpdate: Bool, index: Int, memoModel: MemoModel) {
+	init(isUpdate: Bool, memoModel: MemoModel) {
 		self.isUpdate.value = isUpdate
-		self.index.value = index
 		self.memoModel.value = memoModel
 	}
 

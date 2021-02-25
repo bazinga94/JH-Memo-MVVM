@@ -12,7 +12,7 @@ struct MemoModel {
 	var homeContent: String		// Main View memo list content
 	var content: String			// Memo View content
 	var date: Date				// Memo saving date
-	var index: Int64			// Memo index
+	var index: Int				// Memo index
 
 	init() {
 		self.homeTitle = ""
