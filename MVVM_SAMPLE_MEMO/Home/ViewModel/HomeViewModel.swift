@@ -21,7 +21,7 @@ protocol HomeViewModelProtocol {
 	func memoListUpdate(memoViewModel: MemoViewModel)
 }
 
-class HomeViewModel: NSObject, HomeViewModelProtocol {
+class HomeViewModel: CoreDataCRUD, HomeViewModelProtocol {
 	var title: Dynamic<String> = .init("")
 	var memoList: Dynamic<[MemoModel]> = .init(.init())
 
@@ -32,46 +32,18 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 
 	private func configureModel() {
 		title.value = "MVVM 메모앱"
-		memoList.value = fetchFromCoreData()
+		memoList.value = fetchFromCoreData().sorted(by: { $0.index < $1.index })
+		memoList.value.forEach({ print($0) })
 	}
 
 	func memoDidSelect(for index: Int) -> MemoViewModel {
-		return MemoViewModel(isUpdate: true, memoModel: memoList.value[index])
+		return MemoViewModel(isUpdate: true, count: memoList.value.count, memoModel: memoList.value[index])
 	}
 
 	func memoListUpdate(memoViewModel: MemoViewModel) {
-		if memoList.value.count > 0, memoViewModel.isUpdate.value {
-			memoList.value.remove(at: memoViewModel.memoModel.value.index)
-		}
-		memoList.value.insert(memoViewModel.memoModel.value, at: 0)
-	}
-
-	func memoListDelete(memoViewModel: MemoViewModel) {
-		if memoList.value.count > 0 {
-			memoList.value.remove(at: memoViewModel.memoModel.value.index)
-		}
-	}
-
-	private func fetchFromCoreData() -> [MemoModel] {
-		var memoModelList: [MemoModel] = []
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		let context = appDelegate.persistentContainer.viewContext
-		do {
-			let memoEntityList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoEntity]
-			memoEntityList.forEach { (entity) in
-				var memoModel = MemoModel()
-				memoModel.homeTitle = entity.homeTitle!
-				memoModel.homeContent = entity.homeContent!
-				memoModel.content = entity.content!
-				memoModel.date = entity.date!
-				memoModel.index	= Int(entity.index)
-				memoModelList.append(memoModel)
-			}
-			return memoModelList
-		} catch {
-			print(error.localizedDescription)
-			return []
-		}
+		setFirstIndexCoreData(memoModel: memoViewModel.memoModel.value)
+		memoList.value = fetchFromCoreData().sorted(by: { $0.index < $1.index })
+		memoList.value.forEach({ print($0) })
 	}
 }
 

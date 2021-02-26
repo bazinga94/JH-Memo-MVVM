@@ -13,12 +13,14 @@ protocol MemoViewModelProtocol {
 	func memoContentUpdate(content: String)
 }
 
-class MemoViewModel: MemoViewModelProtocol {
-	var isUpdate: Dynamic<Bool> = .init(false)
+class MemoViewModel: CoreDataCRUD, MemoViewModelProtocol {
+	var isUpdate: Bool = false
 	var memoModel: Dynamic<MemoModel> = .init(.init())
+	var count: Int = 0
 
-	init(isUpdate: Bool, memoModel: MemoModel) {
-		self.isUpdate.value = isUpdate
+	init(isUpdate: Bool, count: Int, memoModel: MemoModel) {
+		self.isUpdate = isUpdate
+		self.count = count
 		self.memoModel.value = memoModel
 	}
 
@@ -48,8 +50,32 @@ class MemoViewModel: MemoViewModelProtocol {
 	func memoContentDelete() {
 		deleteCoreData(memoModel: memoModel.value)
 	}
+}
 
-	private func insertInCoreData(memoModel: MemoModel) {
+class CoreDataCRUD: NSObject {
+	func fetchFromCoreData() -> [MemoModel] {
+		var memoModelList: [MemoModel] = []
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let context = appDelegate.persistentContainer.viewContext
+		do {
+			let memoEntityList = try context.fetch(MemoEntity.fetchRequest()) as! [MemoEntity]
+			memoEntityList.forEach { (entity) in
+				var memoModel = MemoModel()
+				memoModel.homeTitle = entity.homeTitle!
+				memoModel.homeContent = entity.homeContent!
+				memoModel.content = entity.content!
+				memoModel.date = entity.date!
+				memoModel.index	= Int(entity.index)
+				memoModelList.append(memoModel)
+			}
+			return memoModelList
+		} catch {
+			print(error.localizedDescription)
+			return []
+		}
+	}
+
+	func insertInCoreData(memoModel: MemoModel) {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let entity = NSEntityDescription.entity(forEntityName: "MemoEntity", in: context)
@@ -64,7 +90,7 @@ class MemoViewModel: MemoViewModelProtocol {
 		saveContext(context)
 	}
 
-	private func updateInCoreData(memoModel: MemoModel) {
+	func updateInCoreData(memoModel: MemoModel) {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
@@ -83,10 +109,43 @@ class MemoViewModel: MemoViewModelProtocol {
 		} catch {
 			print(error.localizedDescription)
 		}
-
 	}
 
-	private func deleteCoreData(memoModel: MemoModel) {
+	func setFirstIndexCoreData(memoModel: MemoModel) {
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let context = appDelegate.persistentContainer.viewContext
+		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
+		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
+
+		do {
+			let results = try context.fetch(fetchRequest) as? [MemoEntity]
+			if results?.count != 0 {
+				results?[0].setValue(0, forKey: "index")
+			}
+			saveContext(context)
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func ascendIndexCoreData(change index: Int) {
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let context = appDelegate.persistentContainer.viewContext
+		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
+		fetchRequest.predicate = NSPredicate(format: "index == \(index)")
+
+		do {
+			let results = try context.fetch(fetchRequest) as? [MemoEntity]
+			if results?.count != 0 {
+				results?[0].setValue(index + 1, forKey: "index")
+			}
+			saveContext(context)
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func deleteCoreData(memoModel: MemoModel) {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")

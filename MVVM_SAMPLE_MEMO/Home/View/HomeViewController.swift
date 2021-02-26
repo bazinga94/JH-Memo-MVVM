@@ -13,10 +13,9 @@ class HomeViewController: UIViewController {
 	@IBAction func newMemoButtonAction(_ sender: Any) {
 		let storyBoard: UIStoryboard! = UIStoryboard(name: "Memo", bundle: nil)
 		if let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController") as? MemoViewController {
-			let lastIndex = viewModel?.memoList.value.count ?? 0
 			var memoModel = MemoModel()
-			memoModel.index = lastIndex
-			viewController.viewModel = MemoViewModel(isUpdate: false, memoModel: memoModel)
+			memoModel.index = -1	// 신규 메모 index 임시로 -1 지정
+			viewController.viewModel = MemoViewModel(isUpdate: false, count: viewModel?.memoList.value.count ?? 0, memoModel: memoModel)
 			self.navigationController?.pushViewController(viewController, animated: true)
 		}
 	}
