@@ -32,10 +32,15 @@ class HomeViewController: UIViewController {
 		tableView.delegate = self
 		tableView.dataSource = viewModel
 		initUI()
+		registerCell()
 	}
 
 	private func initUI() {
 		tableView.roundCorners([.topLeft, .topRight], radius: 10)
+	}
+
+	private func registerCell() {
+		tableView.register(cellType: HomeTableViewCell.self)
 	}
 
 	private func configureUI() {

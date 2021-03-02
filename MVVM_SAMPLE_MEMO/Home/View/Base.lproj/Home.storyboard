@@ -19,55 +19,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ijw-Ao-s0x">
                                 <rect key="frame" x="30" y="118" width="354" height="684"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HomeTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" rowHeight="86" id="Tju-fp-JDf" customClass="HomeTableViewCell" customModule="MVVM_SAMPLE_MEMO" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="354" height="86"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tju-fp-JDf" id="Iey-9X-9ya">
-                                            <rect key="frame" x="0.0" y="0.0" width="354" height="86"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aia-ZA-pdF">
-                                                    <rect key="frame" x="30" y="8" width="36.5" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="2aY-M9-aFP"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="UXE-l5-flg">
-                                                    <rect key="frame" x="30" y="39" width="30.5" height="39"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0Ov-ck-m6c">
-                                                    <rect key="frame" x="80.5" y="50" width="52" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aia-ZA-pdF" secondAttribute="trailing" constant="30" id="GAS-mx-ZZ5"/>
-                                                <constraint firstAttribute="bottom" secondItem="UXE-l5-flg" secondAttribute="bottom" constant="8" id="HpS-jt-mfY"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="0Ov-ck-m6c" secondAttribute="trailing" constant="30" id="M9p-YA-2QK"/>
-                                                <constraint firstItem="0Ov-ck-m6c" firstAttribute="centerY" secondItem="UXE-l5-flg" secondAttribute="centerY" id="NAG-0c-uiM"/>
-                                                <constraint firstItem="UXE-l5-flg" firstAttribute="top" secondItem="aia-ZA-pdF" secondAttribute="bottom" constant="10" id="Xd0-HE-F8z"/>
-                                                <constraint firstItem="UXE-l5-flg" firstAttribute="leading" secondItem="Iey-9X-9ya" secondAttribute="leading" constant="30" id="Xob-Wf-7oY"/>
-                                                <constraint firstItem="0Ov-ck-m6c" firstAttribute="leading" secondItem="UXE-l5-flg" secondAttribute="trailing" constant="20" id="blq-6S-ryJ"/>
-                                                <constraint firstItem="aia-ZA-pdF" firstAttribute="top" secondItem="Iey-9X-9ya" secondAttribute="top" constant="8" id="bso-6l-o5h"/>
-                                                <constraint firstItem="aia-ZA-pdF" firstAttribute="leading" secondItem="Iey-9X-9ya" secondAttribute="leading" constant="30" id="oZs-HY-PBQ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="contentLabel" destination="0Ov-ck-m6c" id="9fX-Ih-thE"/>
-                                            <outlet property="dateLabel" destination="UXE-l5-flg" id="hT8-jk-hXa"/>
-                                            <outlet property="titleLabel" destination="aia-ZA-pdF" id="nNj-wa-G3E"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5vc-LC-gA0">
                                 <rect key="frame" x="0.0" y="802" width="414" height="94"/>

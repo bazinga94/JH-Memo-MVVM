@@ -23,6 +23,11 @@ extension UITableView {
 		}
 		return cell
 	}
+
+	func register<T: UITableViewCell>(cellType: T.Type, bundle: Bundle? = nil) {
+		let nib = UINib(nibName: T.className, bundle: bundle)
+		register(nib, forCellReuseIdentifier: T.className)
+	}
 }
 
 extension UIView {

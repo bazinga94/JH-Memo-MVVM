@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B257F03C25EE1E8700F5B823 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B257F03B25EE1E8700F5B823 /* HomeTableViewCell.xib */; };
 		B2BC594925BFB4F9006CDB81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BC594825BFB4F9006CDB81 /* AppDelegate.swift */; };
 		B2BC594B25BFB4F9006CDB81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BC594A25BFB4F9006CDB81 /* SceneDelegate.swift */; };
 		B2BC594D25BFB4F9006CDB81 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BC594C25BFB4F9006CDB81 /* HomeViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B257F03B25EE1E8700F5B823 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		B2BC594525BFB4F9006CDB81 /* MVVM_SAMPLE_MEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVM_SAMPLE_MEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BC594825BFB4F9006CDB81 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2BC594A25BFB4F9006CDB81 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				B2BC594C25BFB4F9006CDB81 /* HomeViewController.swift */,
 				B2BC594E25BFB4F9006CDB81 /* Home.storyboard */,
 				B2BC599A25BFCCF3006CDB81 /* HomeTableViewCell.swift */,
+				B257F03B25EE1E8700F5B823 /* HomeTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				B2BC59B225C01D23006CDB81 /* Memo.storyboard in Resources */,
 				B2BC595525BFB4FA006CDB81 /* LaunchScreen.storyboard in Resources */,
 				B2BC595225BFB4FA006CDB81 /* Assets.xcassets in Resources */,
+				B257F03C25EE1E8700F5B823 /* HomeTableViewCell.xib in Resources */,
 				B2BC595025BFB4F9006CDB81 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

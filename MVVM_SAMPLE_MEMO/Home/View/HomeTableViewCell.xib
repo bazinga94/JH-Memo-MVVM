@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" rowHeight="118" id="ChP-Dm-oIS" customClass="HomeTableViewCell" customModule="MVVM_SAMPLE_MEMO" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="118"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ChP-Dm-oIS" id="CRP-LS-svg">
+                <rect key="frame" x="0.0" y="0.0" width="411" height="118"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="IBB-qV-ZAW">
+                        <rect key="frame" x="30" y="39" width="30.5" height="71"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Pc-EM-pDj">
+                        <rect key="frame" x="30" y="8" width="36.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Di7-5C-ayo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="qgU-Cq-O7J">
+                        <rect key="frame" x="80.5" y="66" width="52" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="IBB-qV-ZAW" secondAttribute="bottom" constant="8" id="BBI-xm-CgB"/>
+                    <constraint firstItem="0Pc-EM-pDj" firstAttribute="leading" secondItem="CRP-LS-svg" secondAttribute="leading" constant="30" id="Iz8-ZF-g9u"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="qgU-Cq-O7J" secondAttribute="trailing" constant="30" id="PWD-eG-qBT"/>
+                    <constraint firstItem="qgU-Cq-O7J" firstAttribute="leading" secondItem="IBB-qV-ZAW" secondAttribute="trailing" constant="20" id="PvH-Za-iUz"/>
+                    <constraint firstItem="IBB-qV-ZAW" firstAttribute="top" secondItem="0Pc-EM-pDj" secondAttribute="bottom" constant="10" id="VPw-Mb-zxX"/>
+                    <constraint firstItem="0Pc-EM-pDj" firstAttribute="top" secondItem="CRP-LS-svg" secondAttribute="top" constant="8" id="lK7-yH-fOU"/>
+                    <constraint firstItem="qgU-Cq-O7J" firstAttribute="centerY" secondItem="IBB-qV-ZAW" secondAttribute="centerY" id="lSv-qI-KPd"/>
+                    <constraint firstItem="IBB-qV-ZAW" firstAttribute="leading" secondItem="CRP-LS-svg" secondAttribute="leading" constant="30" id="n3T-fb-QXe"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Pc-EM-pDj" secondAttribute="trailing" constant="30" id="wEb-Ec-eqi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentLabel" destination="qgU-Cq-O7J" id="ewK-RQ-OXG"/>
+                <outlet property="dateLabel" destination="IBB-qV-ZAW" id="cU6-kR-05o"/>
+                <outlet property="titleLabel" destination="0Pc-EM-pDj" id="OSq-3p-fgX"/>
+            </connections>
+            <point key="canvasLocation" x="-93.599999999999994" y="151.12443778110946"/>
+        </tableViewCell>
+    </objects>
+</document>
