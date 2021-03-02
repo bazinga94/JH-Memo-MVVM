@@ -25,15 +25,11 @@ class MemoViewModel: CoreDataCRUD, MemoViewModelProtocol {
 	}
 
 	func memoContentInsert(content: String) {
-//		let title = content.split(separator: "\n", maxSplits: 1).map(String.init)
-//		if title.count == 0 { return }
-//		memoModel.value.homeTitle = title[0]
-//		memoModel.value.homeContent = (title.count > 1) ? title[1] : "추가 텍스트 없음"
-//		memoModel.value.content = content
 		memoModel.value.homeTitle = ""
 		memoModel.value.homeContent = ""
 		memoModel.value.content = ""
 		memoModel.value.date = Date()
+		memoModel.value.index = -1
 		insertInCoreData(memoModel: memoModel.value)
 	}
 
@@ -94,7 +90,7 @@ class CoreDataCRUD: NSObject {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
+		fetchRequest.predicate = NSPredicate(format: "index == \(-1)")
 
 		do {
 			let results = try context.fetch(fetchRequest) as? [MemoEntity]
@@ -103,7 +99,24 @@ class CoreDataCRUD: NSObject {
 				results?[0].setValue(memoModel.homeTitle, forKey: "homeTitle")
 				results?[0].setValue(memoModel.homeContent, forKey: "homeContent")
 				results?[0].setValue(memoModel.date, forKey: "date")
-				results?[0].setValue(memoModel.index, forKey: "index")
+//				results?[0].setValue(memoModel.index, forKey: "index")
+			}
+			saveContext(context)
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func setTempIndexCoreData(memoModel: MemoModel) {
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let context = appDelegate.persistentContainer.viewContext
+		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
+		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
+
+		do {
+			let results = try context.fetch(fetchRequest) as? [MemoEntity]
+			if results?.count != 0 {
+				results?[0].setValue(-1, forKey: "index")
 			}
 			saveContext(context)
 		} catch {
@@ -115,7 +128,7 @@ class CoreDataCRUD: NSObject {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
+		fetchRequest.predicate = NSPredicate(format: "index == \(-1)")
 
 		do {
 			let results = try context.fetch(fetchRequest) as? [MemoEntity]
@@ -149,7 +162,7 @@ class CoreDataCRUD: NSObject {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let context = appDelegate.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == \(memoModel.index)")
+		fetchRequest.predicate = NSPredicate(format: "index == \(-1)")
 
 		do {
 			guard let results = try context.fetch(fetchRequest) as? [MemoEntity] else { return }

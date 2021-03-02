@@ -16,8 +16,11 @@ class MemoViewController: UIViewController {
 		super.viewDidLoad()
 		memoTextView.delegate = self
 		configureUI()
-		if !viewModel!.isUpdate {		// 메모를 신규 생성하는 경우
-			viewModel?.memoContentInsert(content: "")	// 미리 메모 entity 생성
+		guard let viewModel = viewModel else { return }
+		if viewModel.isUpdate {	// 기존 메모를 업데이트
+			viewModel.setTempIndexCoreData(memoModel: viewModel.memoModel.value)	// 임시로 메모 entity index -1로 변경
+		} else {	// 메모를 신규 생성하는 경우
+			viewModel.memoContentInsert(content: "")	// 미리 메모 entity 생성(index: -1)
 		}
 	}
 
@@ -30,9 +33,9 @@ class MemoViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		if self.isMovingFromParent, let homeViewController = self.navigationController?.topViewController as? HomeViewController, let viewModel = viewModel {
-			if !viewModel.isUpdate, memoTextView.text.count == 0 {		// new
+			if !viewModel.isUpdate, memoTextView.text.count == 0 {		// new & 입력이 없음
 				viewModel.memoContentDelete()
-			} else if viewModel.isUpdate, memoTextView.text.count == 0 {	// edit
+			} else if viewModel.isUpdate, memoTextView.text.count == 0 {	// edit & 입력이 없음
 				viewModel.memoContentDelete()
 			} else {
 				let currentIndex = viewModel.memoModel.value.index
@@ -47,8 +50,8 @@ class MemoViewController: UIViewController {
 						viewModel.ascendIndexCoreData(change: index)
 					}
 				}
-				homeViewController.viewModel?.memoListUpdate(memoViewModel: viewModel)
 			}
+			homeViewController.viewModel?.memoListUpdate(memoViewModel: viewModel)
 		}
 	}
 }
