@@ -65,3 +65,10 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 }
+
+extension UIViewController {
+	func instantiateViewController<T: UIViewController>(storyboard name: String, ofType type: T.Type) -> T? {
+		let storyboard: UIStoryboard = UIStoryboard(name: name, bundle: nil)
+		return storyboard.instantiateViewController(withIdentifier: T.className) as? T
+	}
+}

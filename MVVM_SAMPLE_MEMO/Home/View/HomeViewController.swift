@@ -50,8 +50,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let storyBoard: UIStoryboard! = UIStoryboard(name: "Memo", bundle: nil)
-		if let viewController = storyBoard.instantiateViewController(withIdentifier: "MemoViewController") as? MemoViewController {
+		if let viewController = instantiateViewController(storyboard: "Memo", ofType: MemoViewController.self) {
 			viewController.viewModel = self.viewModel?.memoDidSelect(for: indexPath.row)
 			self.navigationController?.pushViewController(viewController, animated: true)
 		}
