@@ -2,7 +2,7 @@
 //  MemoViewModel.swift
 //  MVVM_SAMPLE_MEMO
 //
-//  Created by 60067671 on 2021/01/27.
+//  Created by Jongho Lee on 2021/01/27.
 //
 
 import UIKit
