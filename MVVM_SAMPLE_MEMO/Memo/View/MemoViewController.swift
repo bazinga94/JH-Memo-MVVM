@@ -33,17 +33,13 @@ class MemoViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		if self.isMovingFromParent, let homeViewController = self.navigationController?.topViewController as? HomeViewController, let viewModel = viewModel {
-			if !viewModel.isUpdate, memoTextView.text.count == 0 {		// new & 입력이 없음
-				viewModel.memoContentDelete()
-			} else if viewModel.isUpdate, memoTextView.text.count == 0 {	// edit & 입력이 없음
+			if memoTextView.text.count == 0 {		// 입력이 없음
 				viewModel.memoContentDelete()
 			} else {
 				let currentIndex = viewModel.memoModel.value.index
 				if viewModel.isUpdate {
-					for index in (0..<viewModel.count).reversed() {
-						if index < currentIndex {
-							viewModel.ascendIndexCoreData(change: index)
-						}
+					for index in (0..<viewModel.count).reversed() where index < currentIndex {
+						viewModel.ascendIndexCoreData(change: index)
 					}
 				} else if viewModel.count > 0 {
 					for index in (0..<viewModel.count).reversed() {
