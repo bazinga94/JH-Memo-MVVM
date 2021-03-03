@@ -18,7 +18,7 @@ class MemoViewController: UIViewController {
 		configureUI()
 		guard let viewModel = viewModel else { return }
 		if viewModel.isUpdate {	// 기존 메모를 업데이트
-			CoreDataManager.sharedManager.setTempIndexCoreData(memoModel: viewModel.memoModel.value)	// 임시로 메모 entity index -1로 변경
+			viewModel.changeMemoIndexTemp()	// 임시로 메모 entity index -1로 변경
 		} else {	// 메모를 신규 생성하는 경우
 			viewModel.memoContentInsert(content: "")	// 미리 메모 entity 생성(index: -1)
 		}
@@ -39,15 +39,16 @@ class MemoViewController: UIViewController {
 				let currentIndex = viewModel.memoModel.value.index
 				if viewModel.isUpdate {
 					for index in (0..<viewModel.count).reversed() where index < currentIndex {
-						CoreDataManager.sharedManager.ascendIndexCoreData(change: index)
+						viewModel.ascendIndex(of: index)
 					}
 				} else if viewModel.count > 0 {
 					for index in (0..<viewModel.count).reversed() {
-						CoreDataManager.sharedManager.ascendIndexCoreData(change: index)
+						viewModel.ascendIndex(of: index)
 					}
 				}
 			}
 			homeViewController.viewModel?.memoListUpdate(memoViewModel: viewModel)
+			print("확인")
 		}
 	}
 }

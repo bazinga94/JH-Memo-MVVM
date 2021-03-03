@@ -45,4 +45,12 @@ class MemoViewModel: MemoViewModelProtocol {
 	func memoContentDelete() {
 		CoreDataManager.sharedManager.deleteCoreData(memoModel: memoModel.value)
 	}
+
+	func changeMemoIndexTemp() {
+		CoreDataManager.sharedManager.setTempIndexCoreData(memoModel: memoModel.value)
+	}
+
+	func ascendIndex(of index: Int) {
+		CoreDataManager.sharedManager.ascendIndexCoreData(change: index)
+	}
 }
