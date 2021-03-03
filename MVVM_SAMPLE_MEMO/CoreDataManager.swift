@@ -96,7 +96,7 @@ class CoreDataManager {
 		}
 	}
 
-	func setFirstIndexCoreData(memoModel: MemoModel) {
+	func setFirstIndexCoreData() {
 		let context = persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
 		fetchRequest.predicate = NSPredicate(format: "index == \(-1)")
@@ -128,10 +128,26 @@ class CoreDataManager {
 		}
 	}
 
-	func deleteCoreData(memoModel: MemoModel) {
+	func descendIndexCoreData(change index: Int) {
 		let context = persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == \(-1)")
+		fetchRequest.predicate = NSPredicate(format: "index == \(index)")
+
+		do {
+			let results = try context.fetch(fetchRequest) as? [MemoEntity]
+			if results?.count != 0 {
+				results?[0].setValue(index - 1, forKey: "index")
+			}
+			saveContext()
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func deleteCoreData() {
+		let context = persistentContainer.viewContext
+		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
+		fetchRequest.predicate = NSPredicate(format: "index == \(0)")
 
 		do {
 			guard let results = try context.fetch(fetchRequest) as? [MemoEntity] else { return }

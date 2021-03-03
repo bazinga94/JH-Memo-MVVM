@@ -39,7 +39,7 @@ class MemoViewModel: MemoViewModelProtocol {
 	}
 
 	func memoContentDelete() {
-		CoreDataManager.sharedManager.deleteCoreData(memoModel: memoModel.value)
+		CoreDataManager.sharedManager.deleteCoreData()
 	}
 
 	func changeIndexToTemp() {
@@ -50,7 +50,11 @@ class MemoViewModel: MemoViewModelProtocol {
 		CoreDataManager.sharedManager.ascendIndexCoreData(change: index)
 	}
 
+	func descendIndex(of index: Int) {
+		CoreDataManager.sharedManager.descendIndexCoreData(change: index)
+	}
+
 	func changeIndexToFirst() {
-		CoreDataManager.sharedManager.setFirstIndexCoreData(memoModel: memoModel.value)
+		CoreDataManager.sharedManager.setFirstIndexCoreData()
 	}
 }

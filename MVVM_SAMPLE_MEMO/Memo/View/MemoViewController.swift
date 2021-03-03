@@ -46,8 +46,11 @@ class MemoViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		if self.isMovingFromParent, let viewModel = viewModel {
-			if memoTextView.text.count == 0 {		// 입력이 없음
-				viewModel.memoContentDelete()		// TODO: 지우고 index도 1개씩 줄여야함
+			if memoTextView.text.count == 0 {			// 입력이 없음
+				viewModel.memoContentDelete()			// index 0의 데이터 제거
+				for index in (1..<viewModel.count) {	// index 조정
+					viewModel.descendIndex(of: index)
+				}
 			}
 		}
 	}
