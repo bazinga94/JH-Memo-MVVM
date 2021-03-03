@@ -15,6 +15,7 @@ class MemoViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		memoTextView.delegate = self
+		memoTextView.becomeFirstResponder()
 		configureUI()
 		guard let viewModel = viewModel else { return }
 		if viewModel.isUpdate {	// 기존 메모를 업데이트
