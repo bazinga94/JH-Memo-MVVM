@@ -21,7 +21,7 @@ protocol HomeViewModelProtocol {
 	func memoListUpdate(memoViewModel: MemoViewModel)
 }
 
-class HomeViewModel: CoreDataCRUD, HomeViewModelProtocol {
+class HomeViewModel: NSObject, HomeViewModelProtocol {
 	var title: Dynamic<String> = .init("")
 	var memoList: Dynamic<[MemoModel]> = .init(.init())
 
@@ -32,7 +32,7 @@ class HomeViewModel: CoreDataCRUD, HomeViewModelProtocol {
 
 	private func configureModel() {
 		title.value = "MVVM 메모앱"
-		memoList.value = fetchFromCoreData().sorted(by: { $0.index < $1.index })
+		memoList.value = CoreDataManager.sharedManager.fetchFromCoreData().sorted(by: { $0.index < $1.index })
 		memoList.value.forEach({ print($0) })
 	}
 
@@ -41,8 +41,8 @@ class HomeViewModel: CoreDataCRUD, HomeViewModelProtocol {
 	}
 
 	func memoListUpdate(memoViewModel: MemoViewModel) {
-		setFirstIndexCoreData(memoModel: memoViewModel.memoModel.value)
-		memoList.value = fetchFromCoreData().sorted(by: { $0.index < $1.index })
+		CoreDataManager.sharedManager.setFirstIndexCoreData(memoModel: memoViewModel.memoModel.value)
+		memoList.value = CoreDataManager.sharedManager.fetchFromCoreData().sorted(by: { $0.index < $1.index })
 		memoList.value.forEach({ print($0) })
 	}
 }
