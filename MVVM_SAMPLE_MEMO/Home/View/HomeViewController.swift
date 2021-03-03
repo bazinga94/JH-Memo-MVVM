@@ -34,6 +34,11 @@ class HomeViewController: UIViewController {
 		registerCell()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		viewModel?.configureModel()
+	}
+
 	private func initUI() {
 		tableView.roundCorners([.topLeft, .topRight], radius: 10)
 	}

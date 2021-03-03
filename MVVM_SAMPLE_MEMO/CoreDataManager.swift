@@ -55,15 +55,15 @@ class CoreDataManager {
 		content.setValue(memoModel.homeTitle, forKey: "homeTitle")
 		content.setValue(memoModel.homeContent, forKey: "homeContent")
 		content.setValue(memoModel.date, forKey: "date")
-		content.setValue(memoModel.index, forKey: "index")
+		content.setValue(-1, forKey: "index")
 
-		saveContext(context)
+		saveContext()
 	}
 
 	func updateInCoreData(memoModel: MemoModel) {
 		let context = persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MemoEntity")
-		fetchRequest.predicate = NSPredicate(format: "index == \(-1)")
+		fetchRequest.predicate = NSPredicate(format: "index == \(0)")
 
 		do {
 			let results = try context.fetch(fetchRequest) as? [MemoEntity]
@@ -72,9 +72,9 @@ class CoreDataManager {
 				results?[0].setValue(memoModel.homeTitle, forKey: "homeTitle")
 				results?[0].setValue(memoModel.homeContent, forKey: "homeContent")
 				results?[0].setValue(memoModel.date, forKey: "date")
-				//				results?[0].setValue(memoModel.index, forKey: "index")
+//				results?[0].setValue(memoModel.index, forKey: "index")
 			}
-			saveContext(context)
+			saveContext()
 		} catch {
 			print(error.localizedDescription)
 		}
@@ -90,7 +90,7 @@ class CoreDataManager {
 			if results?.count != 0 {
 				results?[0].setValue(-1, forKey: "index")
 			}
-			saveContext(context)
+			saveContext()
 		} catch {
 			print(error.localizedDescription)
 		}
@@ -106,7 +106,7 @@ class CoreDataManager {
 			if results?.count != 0 {
 				results?[0].setValue(0, forKey: "index")
 			}
-			saveContext(context)
+			saveContext()
 		} catch {
 			print(error.localizedDescription)
 		}
@@ -122,7 +122,7 @@ class CoreDataManager {
 			if results?.count != 0 {
 				results?[0].setValue(index + 1, forKey: "index")
 			}
-			saveContext(context)
+			saveContext()
 		} catch {
 			print(error.localizedDescription)
 		}
@@ -138,15 +138,7 @@ class CoreDataManager {
 			if results.count != 0 {
 				context.delete(results[0])
 			}
-			saveContext(context)
-		} catch {
-			print(error.localizedDescription)
-		}
-	}
-
-	private func saveContext(_ context: NSManagedObjectContext) {
-		do {
-			try context.save()
+			saveContext()
 		} catch {
 			print(error.localizedDescription)
 		}

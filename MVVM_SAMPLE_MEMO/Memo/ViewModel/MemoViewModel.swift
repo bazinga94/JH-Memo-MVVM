@@ -24,11 +24,7 @@ class MemoViewModel: MemoViewModelProtocol {
 	}
 
 	func memoContentInsert(content: String) {
-		memoModel.value.homeTitle = ""
-		memoModel.value.homeContent = ""
-		memoModel.value.content = ""
 		memoModel.value.date = Date()
-		memoModel.value.index = -1
 		CoreDataManager.sharedManager.insertInCoreData(memoModel: memoModel.value)
 	}
 
@@ -46,11 +42,15 @@ class MemoViewModel: MemoViewModelProtocol {
 		CoreDataManager.sharedManager.deleteCoreData(memoModel: memoModel.value)
 	}
 
-	func changeMemoIndexTemp() {
+	func changeIndexToTemp() {
 		CoreDataManager.sharedManager.setTempIndexCoreData(memoModel: memoModel.value)
 	}
 
 	func ascendIndex(of index: Int) {
 		CoreDataManager.sharedManager.ascendIndexCoreData(change: index)
+	}
+
+	func changeIndexToFirst() {
+		CoreDataManager.sharedManager.setFirstIndexCoreData(memoModel: memoModel.value)
 	}
 }

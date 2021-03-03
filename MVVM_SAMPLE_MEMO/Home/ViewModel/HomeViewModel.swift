@@ -18,7 +18,6 @@ protocol ViewModel {
 
 protocol HomeViewModelProtocol {
 	func memoDidSelect(for index: Int) -> MemoViewModel
-	func memoListUpdate(memoViewModel: MemoViewModel)
 }
 
 class HomeViewModel: NSObject, HomeViewModelProtocol {
@@ -30,7 +29,7 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 		configureModel()
 	}
 
-	private func configureModel() {
+	func configureModel() {
 		title.value = "MVVM 메모앱"
 		memoList.value = CoreDataManager.sharedManager.fetchFromCoreData().sorted(by: { $0.index < $1.index })
 		memoList.value.forEach({ print($0) })
@@ -38,12 +37,6 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 
 	func memoDidSelect(for index: Int) -> MemoViewModel {
 		return MemoViewModel(isUpdate: true, count: memoList.value.count, memoModel: memoList.value[index])
-	}
-
-	func memoListUpdate(memoViewModel: MemoViewModel) {
-		CoreDataManager.sharedManager.setFirstIndexCoreData(memoModel: memoViewModel.memoModel.value)
-		memoList.value = CoreDataManager.sharedManager.fetchFromCoreData().sorted(by: { $0.index < $1.index })
-		memoList.value.forEach({ print($0) })
 	}
 }
 

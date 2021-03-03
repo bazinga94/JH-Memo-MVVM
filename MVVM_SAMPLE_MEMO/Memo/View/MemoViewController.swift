@@ -17,12 +17,7 @@ class MemoViewController: UIViewController {
 		memoTextView.delegate = self
 		memoTextView.becomeFirstResponder()
 		configureUI()
-		guard let viewModel = viewModel else { return }
-		if viewModel.isUpdate {	// 기존 메모를 업데이트
-			viewModel.changeMemoIndexTemp()	// 임시로 메모 entity index -1로 변경
-		} else {	// 메모를 신규 생성하는 경우
-			viewModel.memoContentInsert(content: "")	// 미리 메모 entity 생성(index: -1)
-		}
+		configureCoreData()
 	}
 
 	private func configureUI() {
@@ -31,25 +26,29 @@ class MemoViewController: UIViewController {
 		})
 	}
 
+	private func configureCoreData() {
+		guard let viewModel = viewModel else { return }
+		let currentIndex = viewModel.memoModel.value.index
+		if viewModel.isUpdate {	// 기존 메모를 업데이트
+			viewModel.changeIndexToTemp()	// 임시로 메모 entity index -1로 변경
+			for index in (0..<viewModel.count).reversed() where index < currentIndex {
+				viewModel.ascendIndex(of: index)
+			}
+		} else {	// 메모를 신규 생성하는 경우
+			viewModel.memoContentInsert(content: "")	// 미리 메모 entity 생성(index: -1)
+			for index in (0..<viewModel.count).reversed() {
+				viewModel.ascendIndex(of: index)
+			}
+		}
+		viewModel.changeIndexToFirst()	// -1로 변경한 index를 0으로 다시 변경
+	}
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		if self.isMovingFromParent, let homeViewController = self.navigationController?.topViewController as? HomeViewController, let viewModel = viewModel {
+		if self.isMovingFromParent, let viewModel = viewModel {
 			if memoTextView.text.count == 0 {		// 입력이 없음
-				viewModel.memoContentDelete()
-			} else {
-				let currentIndex = viewModel.memoModel.value.index
-				if viewModel.isUpdate {
-					for index in (0..<viewModel.count).reversed() where index < currentIndex {
-						viewModel.ascendIndex(of: index)
-					}
-				} else if viewModel.count > 0 {
-					for index in (0..<viewModel.count).reversed() {
-						viewModel.ascendIndex(of: index)
-					}
-				}
+				viewModel.memoContentDelete()		// TODO: 지우고 index도 1개씩 줄여야함
 			}
-			homeViewController.viewModel?.memoListUpdate(memoViewModel: viewModel)
-			print("확인")
 		}
 	}
 }
