@@ -5,7 +5,7 @@
 //  Created by Jongho Lee on 2021/01/26.
 //
 
-import UIKit
+import Foundation
 
 protocol ViewModel {
 	associatedtype Model
