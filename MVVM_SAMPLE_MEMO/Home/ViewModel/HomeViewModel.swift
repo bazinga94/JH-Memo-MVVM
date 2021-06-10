@@ -7,7 +7,6 @@
 
 import UIKit
 
-// YG 참고!
 protocol ViewModel {
 	associatedtype Model
 	var model: Model { get set }
