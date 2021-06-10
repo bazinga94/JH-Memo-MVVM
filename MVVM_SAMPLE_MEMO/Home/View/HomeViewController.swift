@@ -24,11 +24,14 @@ class HomeViewController: UIViewController {
 		}
 	}
 
+	private var dataSource: HomeTableViewDataSource<HomeTableViewCell, MemoModel>!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.viewModel = HomeViewModel.init()
 		tableView.delegate = self
-		tableView.dataSource = viewModel
+//		tableView.dataSource = viewModel
+		tableView.dataSource = dataSource
 		initUI()
 		registerCell()
 	}
@@ -51,8 +54,26 @@ class HomeViewController: UIViewController {
 			self?.navigationItem.title = title
 		})
 		viewModel?.memoList.bind(listener: { [weak self] _ in
-			self?.tableView.reloadData()
+//			self?.tableView.reloadData()
+			self?.updateDataSource()
 		})
+	}
+
+	private func updateDataSource() {
+		guard let viewModel = viewModel else { return }
+		self.dataSource = HomeTableViewDataSource<HomeTableViewCell, MemoModel>.init(
+			items: viewModel.memoList.value,
+			configureCell: { (cell, model) in
+				cell.titleLabel.text = model.homeTitle
+				cell.contentLabel.text = model.homeContent
+				cell.dateLabel.text = model.date.dateToString("yyyy.MM.dd HH:mm:ss")
+			}
+		)
+
+		DispatchQueue.main.async {
+			self.tableView.dataSource = self.dataSource
+			self.tableView.reloadData()
+		}
 	}
 }
 

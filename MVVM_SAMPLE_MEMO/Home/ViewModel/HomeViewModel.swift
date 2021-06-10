@@ -19,12 +19,16 @@ protocol HomeViewModelProtocol {
 	func memoDidSelect(for index: Int) -> MemoViewModel
 }
 
-class HomeViewModel: NSObject, HomeViewModelProtocol {
+//class HomeViewModel: NSObject, HomeViewModelProtocol {
+class HomeViewModel: HomeViewModelProtocol {
 	var title: Dynamic<String> = .init("")
 	var memoList: Dynamic<[MemoModel]> = .init(.init())
 
-	override init() {
-		super.init()
+//	override init() {
+//		super.init()
+//		configureModel()
+//	}
+	init() {
 		configureModel()
 	}
 
@@ -39,16 +43,16 @@ class HomeViewModel: NSObject, HomeViewModelProtocol {
 	}
 }
 
-extension HomeViewModel: UITableViewDataSource {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return memoList.value.count
-	}
-
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell: HomeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-		cell.titleLabel.text = memoList.value[indexPath.row].homeTitle
-		cell.contentLabel.text = memoList.value[indexPath.row].homeContent
-		cell.dateLabel.text = memoList.value[indexPath.row].date.dateToString("yyyy.MM.dd HH:mm:ss")
-		return cell
-	}
-}
+//extension HomeViewModel: UITableViewDataSource {
+//	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//		return memoList.value.count
+//	}
+//
+//	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//		let cell: HomeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+//		cell.titleLabel.text = memoList.value[indexPath.row].homeTitle
+//		cell.contentLabel.text = memoList.value[indexPath.row].homeContent
+//		cell.dateLabel.text = memoList.value[indexPath.row].date.dateToString("yyyy.MM.dd HH:mm:ss")
+//		return cell
+//	}
+//}
